@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Timestampable;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use App\Entity\Starship;
 
 #[ORM\Entity(repositoryClass: StarshipPartRepository::class)]
 class StarshipPart
@@ -27,9 +28,9 @@ class StarshipPart
     #[ORM\Column(type: Types::TEXT)]
     private ?string $notes = null;
 
-    #[ORM\ManyToOne(inversedBy: 'parts')]
+    #[ORM\ManyToOne(targetEntity: Starship::class, inversedBy: 'parts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Starship $Starship = null;
+    private ?Starship $starship = null;
 
     public function getId(): ?int
     {
@@ -74,12 +75,12 @@ class StarshipPart
 
     public function getStarship(): ?Starship
     {
-        return $this->Starship;
+        return $this->starship;
     }
 
-    public function setStarship(?Starship $Starship): static
+    public function setStarship(?Starship $starship): static
     {
-        $this->Starship = $Starship;
+        $this->starship = $starship;
 
         return $this;
     }
