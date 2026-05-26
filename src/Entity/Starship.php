@@ -42,7 +42,9 @@ class Starship
     /**
      * @var Collection<int, StarshipPart>
      */
-    #[ORM\OneToMany(targetEntity: StarshipPart::class, mappedBy: 'starship')]
+    #[ORM\OneToMany(targetEntity: StarshipPart::class, mappedBy: 'starship', orphanRemoval: true,)]
+    // #[ORM\OneToMany(targetEntity: StarshipPart::class, mappedBy: 'starship')]
+
     private Collection $parts;
 
     public function __construct()

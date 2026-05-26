@@ -53,15 +53,22 @@ class AppFixtures extends Fixture
         // $starship->addPart($part2);
         // $manager->flush();
 
-        StarshipFactory::createOne([
+        $ship =  StarshipFactory::createOne([
             'name' => 'USS Espresso (NCC-1234-C)',
             'class' => 'Latte',
             'captain' => 'James T. Quick!',
             'status' => StarshipStatusEnum::COMPLETED,
             'arrivedAt' => new \DateTimeImmutable('-1 week'),
-        ]);
+        ])->_real();
 
-        StarshipFactory::createOne([
+        $starshipPart = StarshipPartFactory::createOne([
+
+            'starship' => $ship
+        ])->_real();
+        $ship->removePart($starshipPart);
+        $manager->flush();
+        dump($starshipPart);
+        $ship =  StarshipFactory::createOne([
             'name' => 'USS Wanderlust (NCC-2024-W)',
             'class' => 'Delta Tourist',
             'captain' => 'Kathryn Journeyway',
