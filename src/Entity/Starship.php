@@ -156,6 +156,7 @@ class Starship
     {
         return $this->parts;
     }
+    // owning side of the relationship, so we need to set the Starship on the StarshipPart as well
 
     public function addPart(StarshipPart $part): static
     {

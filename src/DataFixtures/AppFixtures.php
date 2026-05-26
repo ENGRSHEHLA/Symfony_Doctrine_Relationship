@@ -14,6 +14,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        // $starship = StarshipFactory::createOne()->_real();
         StarshipFactory::createOne([
             'name' => 'USS LeafyCruiser (NCC-0001)',
             'class' => 'Garden',
@@ -33,9 +34,24 @@ class AppFixtures extends Fixture
         $part->setName('spoiler');
         $part->setNotes('There\'s no air drag in space, but it looks cool.');
         $part->setPrice(500);
-        $manager->persist($part);
-        $part->setStarship($starship);
-        $manager->flush();
+
+        // $manager->persist($part);
+
+        // $part1 = new StarshipPart();
+        // $part1->setName('spoiler');
+        // $part1->setNotes('There\'s no air drag in space, but it looks cool.');
+        // $part1->setPrice(500);
+
+        // $part2 = new StarshipPart();
+        // $part2->setName('wing');
+        // $part2->setNotes('Provides additional lift in atmosphere.');
+        // $part2->setPrice(1000);
+
+        // $manager->persist($part1);
+        // $manager->persist($part2);
+        // $starship->addPart($part1);
+        // $starship->addPart($part2);
+        // $manager->flush();
 
         StarshipFactory::createOne([
             'name' => 'USS Espresso (NCC-1234-C)',
