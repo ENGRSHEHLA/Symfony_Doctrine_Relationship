@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Slug;
 use Gedmo\Mapping\Annotation\Timestampable;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Doctrine\Common\Collections\Criteria;
+use App\Repository\StarshipPartRepository;
 
 #[ORM\Entity(repositoryClass: StarshipRepository::class)]
 class Starship
@@ -158,6 +160,21 @@ class Starship
     public function getParts(): Collection
     {
         return $this->parts;
+    }
+
+    /**
+     * @return Collection<int, StarshipPart>
+     */
+    public function getExtensiveParts(): Collection
+    {
+
+        // Criteria object to filter out parts with price > 50000, which will be executed in the database if the collection is not yet loaded, or in memory if it is already loaded
+        $criteria = Criteria::create()->andWhere(Criteria::expr()->gt('price', 50000));
+        return $this->parts->matching($criteria);
+        // filter out cheaper parts using Criteria API, which will be executed in the database if the collection is not yet loaded, or in memory if it is already loaded
+        // return $this->parts->filter(function (StarshipPart $part) {
+        //     return $part->getPrice() > 50000;
+        // });
     }
     // owning side of the relationship, so we need to set the Starship on the StarshipPart as well
 
